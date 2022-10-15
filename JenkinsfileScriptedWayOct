@@ -1,0 +1,36 @@
+//Default execute this pipeline script in the master node
+node{
+    
+    //Defining some properties like Discard old builds, Automation Build Trigger - PollSCM
+    properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '5', artifactNumToKeepStr: '5', daysToKeepStr: '5', numToKeepStr: '5')), [$class: 'JobLocalConfiguration', changeReasonComment: ''], pipelineTriggers([pollSCM('* * * * *')])])
+    
+    //Define mavenHome variable and assign the path of the Maven where it is installed
+    def mavenHome = tool name: "maven3.8.3"
+    
+    //Step 1: Get the code from the GitHub Repo
+    stage('CheckoutCode'){
+        git branch: 'development', credentialsId: 'b74e8585-4bf9-4791-b4d3-a288b769f771', url: 'https://github.com/mss-devops-2023/maven-web-application.git'
+    }
+    
+    //Step2: We need to do the build (Generate package or artefact)
+    stage('Build'){
+        sh "${mavenHome}/bin/mvn clean package"
+    }
+    
+    //Step3: Execute SonarQube Report
+    stage('ExecuteSonarQubeReport'){
+        sh "${mavenHome}/bin/mvn sonar:sonar"   
+    }
+    
+    //Step4: Upload artefact into Nexus Repository
+    stage('UploadArtefactIntoNexusRepo'){
+        sh "${mavenHome}/bin/mvn deploy"
+    }
+    
+    //Step5: Deploy application (war) into Tomcat server
+    stage('DeployApplicationIntoTomcatServer'){
+        sshagent(['57338b50-5983-4714-a55b-5ba70f7f79b2']) {
+            sh "scp -o StrictHostKeyChecking=no target/maven-web-application.war ec2-user@13.42.11.240:/opt/apache-tomcat-9.0.68/webapps/"
+        }
+    }
+}
