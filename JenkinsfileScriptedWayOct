@@ -18,7 +18,7 @@ node{
     }
     
     //Step3: Execute SonarQube Report
-    stage('ExecuteSonarQubeReport'){
+    /*stage('ExecuteSonarQubeReport'){
         sh "${mavenHome}/bin/mvn sonar:sonar"   
     }
     
@@ -32,5 +32,5 @@ node{
         sshagent(['57338b50-5983-4714-a55b-5ba70f7f79b2']) {
             sh "scp -o StrictHostKeyChecking=no target/maven-web-application.war ec2-user@13.42.11.240:/opt/apache-tomcat-9.0.68/webapps/"
         }
-    }
+    }*/
 }
