@@ -1,5 +1,5 @@
 //Default execute this pipeline script in the master node
-node{
+node('nodes'){
     
     //Defining some properties like Discard old builds, Automation Build Trigger - PollSCM
     properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '5', artifactNumToKeepStr: '5', daysToKeepStr: '5', numToKeepStr: '5')), [$class: 'JobLocalConfiguration', changeReasonComment: ''], pipelineTriggers([pollSCM('* * * * *')])])
