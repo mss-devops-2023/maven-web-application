@@ -110,7 +110,7 @@
 	      <id>nexus</id>
 	      <name>Mithun Technologies Snapshot Nexus Repository </name>
 	      <!-- <url>http://172.31.44.98:9980/mithuntechnologies/repository/walmart-snapshot/</url> -->
-	      <url>http://3.8.162.166:8081/repository/facebook-snapshot/</url>
+	      <url>http://13.40.46.134:8081/repository/facebook-snapshot/</url>
 	    </snapshotRepository>
 	    
 	</distributionManagement>
