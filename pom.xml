@@ -24,7 +24,7 @@
 		<!-- <sonar.host.url>http://172.31.47.101:9980/</sonar.host.url>
                 <sonar.login>squ_7d24dd1e8ab896e1048111eefabd496b15c667e0</sonar.login> -->
 		
-		<sonar.host.url>http://13.40.169.231:9005/</sonar.host.url>
+		<sonar.host.url>http://3.8.23.33:9005/</sonar.host.url>
 		<sonar.login>navaneetha</sonar.login>
 		<sonar.password>Navani@1</sonar.password>
 		
